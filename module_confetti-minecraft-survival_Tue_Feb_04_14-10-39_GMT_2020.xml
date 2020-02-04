@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_confetti-minecraft-survival" default="compile.module.confetti-minecraft-survival">
+  <dirname property="module.confetti-minecraft-survival.basedir" file="${ant.file.module_confetti-minecraft-survival}"/>
+  
+  <property name="module.jdk.home.confetti-minecraft-survival" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.confetti-minecraft-survival" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.confetti-minecraft-survival" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.confetti-minecraft-survival" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="confetti-minecraft-survival.output.dir" value="${module.confetti-minecraft-survival.basedir}/out/production/Confetti-Minecraft-Survival"/>
+  <property name="confetti-minecraft-survival.testoutput.dir" value="${module.confetti-minecraft-survival.basedir}/out/test/Confetti-Minecraft-Survival"/>
+  
+  <path id="confetti-minecraft-survival.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="confetti-minecraft-survival.module.production.classpath">
+    <path refid="${module.jdk.classpath.confetti-minecraft-survival}"/>
+    <path refid="library.spigot-1.8-r0.1-snapshot-latest.classpath"/>
+  </path>
+  
+  <path id="confetti-minecraft-survival.runtime.production.module.classpath">
+    <pathelement location="${confetti-minecraft-survival.output.dir}"/>
+    <path refid="library.spigot-1.8-r0.1-snapshot-latest.classpath"/>
+  </path>
+  
+  <path id="confetti-minecraft-survival.module.classpath">
+    <path refid="${module.jdk.classpath.confetti-minecraft-survival}"/>
+    <pathelement location="${confetti-minecraft-survival.output.dir}"/>
+    <path refid="library.spigot-1.8-r0.1-snapshot-latest.classpath"/>
+  </path>
+  
+  <path id="confetti-minecraft-survival.runtime.module.classpath">
+    <pathelement location="${confetti-minecraft-survival.testoutput.dir}"/>
+    <pathelement location="${confetti-minecraft-survival.output.dir}"/>
+    <path refid="library.spigot-1.8-r0.1-snapshot-latest.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.confetti-minecraft-survival">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.confetti-minecraft-survival">
+    <patternset refid="excluded.from.module.confetti-minecraft-survival"/>
+  </patternset>
+  
+  <path id="confetti-minecraft-survival.module.sourcepath">
+    <dirset dir="${module.confetti-minecraft-survival.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.confetti-minecraft-survival" depends="compile.module.confetti-minecraft-survival.production,compile.module.confetti-minecraft-survival.tests" description="Compile module Confetti-Minecraft-Survival"/>
+  
+  <target name="compile.module.confetti-minecraft-survival.production" depends="register.custom.compilers" description="Compile module Confetti-Minecraft-Survival; production classes">
+    <mkdir dir="${confetti-minecraft-survival.output.dir}"/>
+    <javac2 destdir="${confetti-minecraft-survival.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.confetti-minecraft-survival}/javac">
+      <compilerarg line="${compiler.args.confetti-minecraft-survival}"/>
+      <bootclasspath refid="confetti-minecraft-survival.module.bootclasspath"/>
+      <classpath refid="confetti-minecraft-survival.module.production.classpath"/>
+      <src refid="confetti-minecraft-survival.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.confetti-minecraft-survival"/>
+    </javac2>
+    
+    <copy todir="${confetti-minecraft-survival.output.dir}">
+      <fileset dir="${module.confetti-minecraft-survival.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.confetti-minecraft-survival.tests" depends="register.custom.compilers,compile.module.confetti-minecraft-survival.production" description="compile module Confetti-Minecraft-Survival; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.confetti-minecraft-survival" description="cleanup module">
+    <delete dir="${confetti-minecraft-survival.output.dir}"/>
+    <delete dir="${confetti-minecraft-survival.testoutput.dir}"/>
+  </target>
+</project>

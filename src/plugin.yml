@@ -1,0 +1,10 @@
+name: Confetti-Minecraft-Survival
+main: net.mineset.eg3.Confetti
+version: 1.0
+commands:
+  tpa:
+  tp:
+  setspawn:
+  spawn:
+  stats:
+  seestats:
